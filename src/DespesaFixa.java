@@ -7,6 +7,24 @@ public class DespesaFixa extends Despesa {
 
     @Override
     public int calcularParteDe(Participante participante) {
-        return 0;
+        if (getParticipantes().contains(participante)) {
+            int base = getValor() / getParticipantes().size();
+            int resto = getValor() % getParticipantes().size();
+            int menores = 0;
+
+            for (Participante outro : getParticipantes()) {
+                if (participante.getCodigo() > outro.getCodigo()) {
+                    menores++;
+                }
+            }
+
+            if (menores < resto) {
+                return base + 1;
+            } else {
+                return base;
+            }
+        } else {
+            return 0;
+        }
     }
 }
