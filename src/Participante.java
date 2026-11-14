@@ -29,5 +29,4 @@ public class Participante {
     public void setOrcamento(int orcamento) {
         this.orcamento = orcamento;
     }
-
 }

@@ -17,4 +17,7 @@ abstract class Despesa {
         return valor;
     }
 
+    public List<Participante> getParticipantes() {
+        return participantes;
+    }
 }

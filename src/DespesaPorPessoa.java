@@ -5,8 +5,12 @@ public class DespesaPorPessoa extends Despesa {
         super(descricao, valor, participantes);
     }
 
-    @Override 
+    @Override
     public int calcularParteDe(Participante participante) {
-        return 0;
+        if (getParticipantes().contains(participante)) {
+            return getValor();
+        } else {
+            return 0;
+        }
     }
 }

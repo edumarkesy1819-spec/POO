@@ -5,7 +5,7 @@ public class DespesaFixa extends Despesa {
         super(descricao, valor, participantes);
     }
 
-    @Override 
+    @Override
     public int calcularParteDe(Participante participante) {
         return 0;
     }
