@@ -33,4 +33,14 @@ public class Planejamento {
         }
         return totalGasto;
     }
+
+    public int calcularExcedenteDe(Participante participante) {
+        int totalDe = calcularTotalDe(participante);
+        int orcamento = participante.getOrcamento();
+        if (totalDe > orcamento) {
+            return totalDe - orcamento;
+        } else {
+            return 0;
+        }
+    }
 }

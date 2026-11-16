@@ -24,9 +24,16 @@ public class TesteRateio {
 
         for (Participante participante : participantes) {
             int total = planejamento.calcularTotalDe(participante);
-
             System.out.println("  " + participante.getNome() + " deve pagar: " + total);
+
+            int excedente = planejamento.calcularExcedenteDe(participante);
+            if (excedente > 0) {
+                System.out.println("  " + participante.getNome() + " excedeu o orçamento em: " + excedente);
+            } else {
+                System.out.println("  " + participante.getNome() + " está dentro do orçamento.");
+            }
         }
+
         System.out.println("Total gasto: " + planejamento.calcularCustoTotal());
 
         Despesa testeCentavos = new DespesaFixa("Teste centavos", 10000, List.of(carla, ana, bruno));
