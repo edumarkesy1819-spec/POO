@@ -17,4 +17,20 @@ public class Planejamento {
     public void adicionarDespesa(Despesa despesa) {
         despesas.add(despesa);
     }
+
+    public int calcularTotalDe(Participante participante) {
+        int totalDe = 0;
+        for (Despesa despesa : despesas) {
+            totalDe += despesa.calcularParteDe(participante);
+        }
+        return totalDe;
+    }
+
+    public int calcularCustoTotal() {
+        int totalGasto = 0;
+        for (Participante participante : participantes) {
+            totalGasto += calcularTotalDe(participante);
+        }
+        return totalGasto;
+    }
 }
