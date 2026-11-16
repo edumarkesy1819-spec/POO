@@ -18,6 +18,10 @@ public class Planejamento {
         despesas.add(despesa);
     }
 
+    public void removerDespesa(Despesa despesa) {
+        despesas.remove(despesa);
+    }
+
     public int calcularTotalDe(Participante participante) {
         int totalDe = 0;
         for (Despesa despesa : despesas) {
