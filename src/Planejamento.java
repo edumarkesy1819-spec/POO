@@ -10,7 +10,12 @@ public class Planejamento {
         this.participantes = new ArrayList<>();
     }
 
-    public void adicionarParticipante(Participante participante) {
+    public void adicionarParticipante(Participante participante) throws PlanejamentoException {
+        for (Participante p : participantes) {
+            if (p.getCodigo() == participante.getCodigo()) {
+               throw new PlanejamentoException("Já existe um participante com o mesmo código.");
+            }
+        }
         participantes.add(participante);
     }
 

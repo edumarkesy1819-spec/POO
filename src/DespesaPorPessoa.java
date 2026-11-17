@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class DespesaPorPessoa extends Despesa {
-    public DespesaPorPessoa(String descricao, int valor, List<Participante> participantes) {
+    public DespesaPorPessoa(String descricao, int valor, List<Participante> participantes) throws PlanejamentoException {
         super(descricao, valor, participantes);
     }
 

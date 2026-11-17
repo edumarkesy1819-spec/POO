@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class DespesaFixa extends Despesa {
-    public DespesaFixa(String descricao, int valor, List<Participante> participantes) {
+    public DespesaFixa(String descricao, int valor, List<Participante> participantes) throws PlanejamentoException {
         super(descricao, valor, participantes);
     }
 
