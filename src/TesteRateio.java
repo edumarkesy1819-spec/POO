@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class TesteRateio {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PlanejamentoException {
         Participante ana = new Participante("Ana", 7000, 1);
         Participante bruno = new Participante("Bruno", 6000, 2);
         Participante carla = new Participante("Carla", 7000, 3);
