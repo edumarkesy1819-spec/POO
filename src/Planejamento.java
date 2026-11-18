@@ -13,7 +13,7 @@ public class Planejamento {
     public void adicionarParticipante(Participante participante) throws PlanejamentoException {
         for (Participante p : participantes) {
             if (p.getCodigo() == participante.getCodigo()) {
-               throw new PlanejamentoException("Já existe um participante com o mesmo código.");
+                throw new PlanejamentoException("Já existe um participante com o mesmo código.");
             }
         }
         participantes.add(participante);
@@ -25,6 +25,14 @@ public class Planejamento {
 
     public void removerDespesa(Despesa despesa) {
         despesas.remove(despesa);
+    }
+
+    public void editarDespesa(Despesa despesaAtual, Despesa despesaNova) throws PlanejamentoException {
+        int indice = despesas.indexOf(despesaAtual);
+        if (indice == -1) {
+            throw new PlanejamentoException("Despesa não encontrada na lista.");
+        }
+        despesas.set(indice, despesaNova);
     }
 
     public int calcularTotalDe(Participante participante) {

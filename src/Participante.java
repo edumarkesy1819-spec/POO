@@ -46,4 +46,19 @@ public class Participante {
             throw new PlanejamentoException("Nome do participante não pode ser nulo ou vazio.");
         }
     }
+
+    @Override
+    public int hashCode() {
+        return codigo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Participante))
+            return false;
+        Participante other = (Participante) obj;
+        return codigo == other.codigo;
+    }
 }

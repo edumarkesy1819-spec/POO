@@ -22,19 +22,7 @@ public class TesteRateio {
 
         List<Participante> participantes = List.of(ana, bruno, carla);
 
-        for (Participante participante : participantes) {
-            int total = planejamento.calcularTotalDe(participante);
-            System.out.println("  " + participante.getNome() + " deve pagar: " + total);
-
-            int excedente = planejamento.calcularExcedenteDe(participante);
-            if (excedente > 0) {
-                System.out.println("  " + participante.getNome() + " excedeu o orçamento em: " + excedente);
-            } else {
-                System.out.println("  " + participante.getNome() + " está dentro do orçamento.");
-            }
-        }
-
-        System.out.println("Total gasto: " + planejamento.calcularCustoTotal());
+        imprimirSituacao(planejamento, participantes);
 
         System.out.println("\nAlterando o orçamento da Ana para 8000...\n");
 
@@ -54,19 +42,14 @@ public class TesteRateio {
         System.out.println("\nRemovendo a despesa de atividade recreativa...\n");
 
         planejamento.removerDespesa(atividadeRecreativa);
-        for (Participante participante : participantes) {
-            int total = planejamento.calcularTotalDe(participante);
-            System.out.println("  " + participante.getNome() + " deve pagar: " + total);
+        imprimirSituacao(planejamento, participantes);
 
-            int excedente = planejamento.calcularExcedenteDe(participante);
-            if (excedente > 0) {
-                System.out.println("  " + participante.getNome() + " excedeu o orçamento em: " + excedente);
-            } else {
-                System.out.println("  " + participante.getNome() + " está dentro do orçamento.");
-            }
-        }
+        System.out.println("\nEditando despesa fixa Transporte por uma despesa por pessoa Sobremesa...\n");
 
-        System.out.println("Total gasto: " + planejamento.calcularCustoTotal());
+        Despesa testeSobremesa = new DespesaPorPessoa("Sobremesa", 1500, List.of(carla, ana, bruno));
+        planejamento.editarDespesa(transporte, testeSobremesa);
+
+        imprimirSituacao(planejamento, participantes);
 
         System.out.println("\nTeste de despesa com centavos...\n");
 
@@ -120,9 +103,40 @@ public class TesteRateio {
         } catch (PlanejamentoException e) {
             System.out.println("Recusado: " + e.getMessage());
         }
+
+        try {
+            new DespesaFixa("Jantar", 2000,
+                    List.of(ana, new Participante("Ana Clara", 5000, 1)));
+            System.out.println("ERRO: deveria ter sido recusado!");
+        } catch (PlanejamentoException e) {
+            System.out.println("Recusado: " + e.getMessage());
+        }
+
+        try {
+            planejamento.editarDespesa(transporte, almoco);
+            System.out.println("ERRO: deveria ter sido recusado!");
+        } catch (PlanejamentoException e) {
+            System.out.println("Recusado: " + e.getMessage());
+        }
+
         System.out.println("Orçamento da Ana: " + ana.getOrcamento());
 
         System.out.println("\nTotal gasto: " + planejamento.calcularCustoTotal());
 
+    }
+
+    private static void imprimirSituacao(Planejamento planejamento, List<Participante> participantes) {
+        for (Participante participante : participantes) {
+            int total = planejamento.calcularTotalDe(participante);
+            System.out.println("  " + participante.getNome() + " deve pagar: " + total);
+
+            int excedente = planejamento.calcularExcedenteDe(participante);
+            if (excedente > 0) {
+                System.out.println("  " + participante.getNome() + " excedeu o orçamento em: " + excedente);
+            } else {
+                System.out.println("  " + participante.getNome() + " está dentro do orçamento.");
+            }
+        }
+        System.out.println("Total gasto: " + planejamento.calcularCustoTotal());
     }
 }

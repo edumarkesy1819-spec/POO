@@ -1,6 +1,8 @@
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
-abstract class Despesa {
+public abstract class Despesa {
     private String descricao;
     private int valor;
     private List<Participante> participantes;
@@ -33,7 +35,20 @@ abstract class Despesa {
         if (participantes == null || participantes.isEmpty()) {
             throw new PlanejamentoException("A lista de participantes não pode ser nula ou vazia.");
         }
+
+        Set<Participante> vistos = new HashSet<>();
+        for (Participante p : participantes) {
+            if (p == null) {
+                throw new PlanejamentoException("A lista de participantes não pode conter elementos nulos.");
+            }
+
+            if (!vistos.add(p)) {
+                throw new PlanejamentoException(
+                        "Participante repetido na despesa " + p.getNome() + " (código " + p.getCodigo() + ")");
+            }
+        }
     }
+
     private void validarValor(int valor) throws PlanejamentoException {
         if (valor <= 0) {
             throw new PlanejamentoException("O valor da despesa não pode ser zero ou negativo.");
