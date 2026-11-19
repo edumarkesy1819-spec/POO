@@ -1,6 +1,8 @@
 import java.util.List;
 
 public class DespesaFixa extends Despesa {
+    private static final long serialVersionUID = 1L;
+
     public DespesaFixa(String descricao, int valor, List<Participante> participantes) throws PlanejamentoException {
         super(descricao, valor, participantes);
     }

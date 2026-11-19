@@ -1,7 +1,10 @@
 import java.util.List;
 
 public class DespesaPorPessoa extends Despesa {
-    public DespesaPorPessoa(String descricao, int valor, List<Participante> participantes) throws PlanejamentoException {
+    private static final long serialVersionUID = 1L;
+
+    public DespesaPorPessoa(String descricao, int valor, List<Participante> participantes)
+            throws PlanejamentoException {
         super(descricao, valor, participantes);
     }
 

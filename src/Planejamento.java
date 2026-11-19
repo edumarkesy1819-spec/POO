@@ -1,7 +1,10 @@
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Planejamento {
+public class Planejamento implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private List<Despesa> despesas;
     private List<Participante> participantes;
 

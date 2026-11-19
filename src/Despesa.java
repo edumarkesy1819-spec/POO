@@ -1,8 +1,11 @@
 import java.util.List;
 import java.util.Set;
+import java.io.Serializable;
 import java.util.HashSet;
 
-public abstract class Despesa {
+public abstract class Despesa implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String descricao;
     private int valor;
     private List<Participante> participantes;
