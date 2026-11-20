@@ -123,6 +123,52 @@ public class TesteRateio {
 
         System.out.println("\nTotal gasto: " + planejamento.calcularCustoTotal());
 
+        System.out.println("\nTeste de salvar e reiniciar...\n");
+
+        RepositorioPlanejamento repositorio = new ArquivoPlanejamento("planejamento.dat");
+        try {
+            repositorio.salvar(planejamento);
+            repositorio.salvar(planejamento);
+            System.out.println("Planejamento salvo duas vezes em planejamento.dat");
+
+            Planejamento carregado = repositorio.carregar();
+            System.out.println("Planejamento carregado do arquivo.\n");
+
+            imprimirSituacao(carregado, carregado.getParticipantes());
+            System.out
+                    .println("Participantes: " + carregado.getParticipantes().size() + " | Despesas: "
+                            + carregado.getDespesas().size());
+
+        } catch (PlanejamentoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        System.out.println("\nTeste de carregar arquivo inexistente...\n");
+
+        RepositorioPlanejamento repositorioInexistente = new ArquivoPlanejamento("arquivo_inexistente.dat");
+        RepositorioPlanejamento repositorioInvalido = new ArquivoPlanejamento("../README.md");
+
+        try {
+            repositorioInexistente.carregar();
+            System.out.println("ERRO: deveria ter sido recusado!");
+        } catch (PlanejamentoException e) {
+            System.out.println("Recusado: " + e.getMessage());
+        }
+
+        try {
+            repositorioInvalido.carregar();
+            System.out.println("ERRO: deveria ter sido recusado!");
+        } catch (PlanejamentoException e) {
+            System.out.println("Recusado: " + e.getMessage());
+        }
+
+        System.out.println("\nPlanejamento em uso depois das falhas...\n");
+
+        imprimirSituacao(planejamento, planejamento.getParticipantes());
+
+        System.out.println("\nIniciando um planejamento vazio...\n");
+
+        System.out.println("Total gasto: " + new Planejamento().calcularCustoTotal());
     }
 
     private static void imprimirSituacao(Planejamento planejamento, List<Participante> participantes) {

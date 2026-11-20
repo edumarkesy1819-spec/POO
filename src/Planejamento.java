@@ -1,6 +1,7 @@
 import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Planejamento implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -11,6 +12,14 @@ public class Planejamento implements Serializable {
     public Planejamento() {
         this.despesas = new ArrayList<>();
         this.participantes = new ArrayList<>();
+    }
+
+    public List<Participante> getParticipantes() {
+        return Collections.unmodifiableList(participantes);
+    }
+
+    public List<Despesa> getDespesas() {
+        return Collections.unmodifiableList(despesas);
     }
 
     public void adicionarParticipante(Participante participante) throws PlanejamentoException {
