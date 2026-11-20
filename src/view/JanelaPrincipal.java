@@ -16,7 +16,6 @@ public class JanelaPrincipal extends JFrame {
 
         JTabbedPane abas = new JTabbedPane();
         add(abas);
-        abas.addTab("Participantes", new JPanel());
+        abas.addTab("Participantes", new PainelParticipantes(controller));
     }
-
 }

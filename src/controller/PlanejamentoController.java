@@ -18,7 +18,7 @@ public class PlanejamentoController {
 
   private int converterCodigo(String texto) throws PlanejamentoException {
     if (texto == null || texto.trim().isEmpty()) {
-      throw new PlanejamentoException("O código do participante é obrigatório");
+      throw new PlanejamentoException("O código do participante é obrigatório.");
     }
     try {
       return Integer.parseInt(texto.trim());
