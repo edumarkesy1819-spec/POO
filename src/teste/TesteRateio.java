@@ -1,3 +1,8 @@
+package teste;
+
+import model.*;
+import persistencia.ArquivoPlanejamento;
+import persistencia.RepositorioPlanejamento;
 import java.util.List;
 
 public class TesteRateio {
