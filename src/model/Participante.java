@@ -41,6 +41,13 @@ public class Participante implements Serializable {
         this.orcamento = orcamento;
     }
 
+    public void alterarDados(String novoNome, int novoOrcamento) throws PlanejamentoException {
+        validarNome(novoNome);
+        validarOrcamento(novoOrcamento);
+        this.nome = novoNome;
+        this.orcamento = novoOrcamento;
+    }
+
     private void validarOrcamento(int orcamento) throws PlanejamentoException {
         if (orcamento < 0) {
             throw new PlanejamentoException("Orçamento do participante não pode ser negativo.");

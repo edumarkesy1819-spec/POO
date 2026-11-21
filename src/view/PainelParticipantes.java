@@ -3,6 +3,8 @@ package view;
 import model.Participante;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -32,20 +34,29 @@ public class PainelParticipantes extends JPanel {
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
 
-        JPanel formularioPanel = new JPanel(new FlowLayout());
+        JPanel camposPanel = new JPanel(new FlowLayout());
         JLabel codigoLabel = new JLabel("Código:");
-        formularioPanel.add(codigoLabel);
-        formularioPanel.add(codigoField);
+        camposPanel.add(codigoLabel);
+        camposPanel.add(codigoField);
         JLabel nomeLabel = new JLabel("Nome:");
-        formularioPanel.add(nomeLabel);
-        formularioPanel.add(nomeField);
+        camposPanel.add(nomeLabel);
+        camposPanel.add(nomeField);
         JLabel orcamentoLabel = new JLabel("Orçamento:");
-        formularioPanel.add(orcamentoLabel);
-        formularioPanel.add(orcamentoField);
+        camposPanel.add(orcamentoLabel);
+        camposPanel.add(orcamentoField);
         JScrollPane scrollParticipantes = new JScrollPane(listaParticipantesArea);
+
+        JPanel botoesPanel = new JPanel(new FlowLayout());
         JButton adicionarButton = new JButton("Cadastrar Participante");
         adicionarButton.addActionListener(e -> cadastrarParticipante());
-        formularioPanel.add(adicionarButton);
+        botoesPanel.add(adicionarButton);
+        JButton alterarButton = new JButton("Alterar Participante");
+        alterarButton.addActionListener(e -> alterarParticipante());
+        botoesPanel.add(alterarButton);
+
+        JPanel formularioPanel = new JPanel(new GridLayout(2, 1));
+        formularioPanel.add(camposPanel);
+        formularioPanel.add(botoesPanel);
 
         add(formularioPanel, BorderLayout.NORTH);
         add(scrollParticipantes, BorderLayout.CENTER);
@@ -58,6 +69,20 @@ public class PainelParticipantes extends JPanel {
 
         try {
             controller.cadastrarParticipante(codigoTexto, nome, orcamentoTexto);
+            atualizarListaParticipantes();
+            limparCampos();
+        } catch (PlanejamentoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void alterarParticipante() {
+        String codigoTexto = codigoField.getText();
+        String novoNome = nomeField.getText();
+        String novoOrcamentoTexto = orcamentoField.getText();
+
+        try {
+            controller.alterarParticipante(codigoTexto, novoNome, novoOrcamentoTexto);
             atualizarListaParticipantes();
             limparCampos();
         } catch (PlanejamentoException e) {

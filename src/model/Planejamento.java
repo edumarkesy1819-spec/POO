@@ -33,6 +33,15 @@ public class Planejamento implements Serializable {
         participantes.add(participante);
     }
 
+    public Participante buscarParticipante(int codigo) throws PlanejamentoException {
+        for (Participante p : participantes) {
+            if (p.getCodigo() == codigo) {
+                return p;
+            }
+        }
+        throw new PlanejamentoException("Participante com código " + codigo + " não encontrado.");
+    }
+
     public void adicionarDespesa(Despesa despesa) {
         despesas.add(despesa);
     }

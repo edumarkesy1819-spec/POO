@@ -16,6 +16,25 @@ public class PlanejamentoController {
     planejamentoUso = new Planejamento();
   }
 
+  public void cadastrarParticipante(String codigoTexto, String nome, String orcamentoTexto)
+      throws PlanejamentoException {
+    int codigo = converterCodigo(codigoTexto);
+    int orcamento = converterParaCentavos(orcamentoTexto);
+    planejamentoUso.adicionarParticipante(new Participante(nome, orcamento, codigo));
+  }
+
+  public void alterarParticipante(String codigoTexto, String novoNome, String novoOrcamentoTexto)
+      throws PlanejamentoException {
+    int codigo = converterCodigo(codigoTexto);
+    Participante participante = planejamentoUso.buscarParticipante(codigo);
+    int novoOrcamento = converterParaCentavos(novoOrcamentoTexto);
+    participante.alterarDados(novoNome, novoOrcamento);
+  }
+
+  public List<Participante> listarParticipantes() {
+    return planejamentoUso.getParticipantes();
+  }
+
   private int converterCodigo(String texto) throws PlanejamentoException {
     if (texto == null || texto.trim().isEmpty()) {
       throw new PlanejamentoException("O código do participante é obrigatório.");
@@ -39,14 +58,4 @@ public class PlanejamentoController {
     }
   }
 
-  public void cadastrarParticipante(String codigoTexto, String nome, String orcamentoTexto)
-      throws PlanejamentoException {
-    int codigo = converterCodigo(codigoTexto);
-    int orcamento = converterParaCentavos(orcamentoTexto);
-    planejamentoUso.adicionarParticipante(new Participante(nome, orcamento, codigo));
-  }
-
-  public List<Participante> listarParticipantes() {
-    return planejamentoUso.getParticipantes();
-  }
 }
