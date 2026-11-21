@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
 import controller.PlanejamentoController;
 
 public class JanelaPrincipal extends JFrame {
@@ -17,5 +16,9 @@ public class JanelaPrincipal extends JFrame {
         JTabbedPane abas = new JTabbedPane();
         add(abas);
         abas.addTab("Participantes", new PainelParticipantes(controller));
+
+        PainelDespesas painelDespesas = new PainelDespesas(controller);
+        abas.addTab("Despesas", painelDespesas);
+        abas.addChangeListener(e -> painelDespesas.atualizarListas());
     }
 }

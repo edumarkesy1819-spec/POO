@@ -74,4 +74,9 @@ public class Participante implements Serializable {
         Participante other = (Participante) obj;
         return codigo == other.codigo;
     }
+
+    @Override
+    public String toString() {
+        return "Participante: " + nome + ", Código: " + codigo;
+    }
 }
