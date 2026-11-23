@@ -62,6 +62,15 @@ public class PainelParticipantes extends JPanel {
         add(scrollParticipantes, BorderLayout.CENTER);
     }
 
+    public void atualizarListaParticipantes() {
+        StringBuilder sb = new StringBuilder();
+        for (Participante p : controller.listarParticipantes()) {
+            sb.append(p.getCodigo()).append(" - ").append(p.getNome()).append(" - ")
+                    .append(String.format("R$ %d,%02d", p.getOrcamento() / 100, p.getOrcamento() % 100)).append("\n");
+        }
+        listaParticipantesArea.setText(sb.toString());
+    }
+
     private void cadastrarParticipante() {
         String codigoTexto = codigoField.getText();
         String nome = nomeField.getText();
@@ -96,12 +105,4 @@ public class PainelParticipantes extends JPanel {
         orcamentoField.setText("");
     }
 
-    private void atualizarListaParticipantes() {
-        StringBuilder sb = new StringBuilder();
-        for (Participante p : controller.listarParticipantes()) {
-            sb.append(p.getCodigo()).append(" - ").append(p.getNome()).append(" - ")
-                    .append(String.format("R$ %d,%02d", p.getOrcamento() / 100, p.getOrcamento() % 100)).append("\n");
-        }
-        listaParticipantesArea.setText(sb.toString());
-    }
 }

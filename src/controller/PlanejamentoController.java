@@ -22,6 +22,18 @@ public class PlanejamentoController {
     planejamentoUso = new Planejamento();
   }
 
+  public void novoPlanejamento() {
+    planejamentoUso = new Planejamento();
+  }
+
+  public void salvarPlanejamento() throws PlanejamentoException {
+    repositorio.salvar(planejamentoUso);
+  }
+
+  public void carregarPlanejamento() throws PlanejamentoException {
+    planejamentoUso = repositorio.carregar();
+  }
+
   public void cadastrarParticipante(String codigoTexto, String nome, String orcamentoTexto)
       throws PlanejamentoException {
     int codigo = converterCodigo(codigoTexto);

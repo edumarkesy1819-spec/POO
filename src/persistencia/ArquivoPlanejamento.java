@@ -17,7 +17,8 @@ public class ArquivoPlanejamento implements RepositorioPlanejamento {
 
     @Override
     public void salvar(Planejamento planejamento) throws PlanejamentoException {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(arquivo))) {
+        try (FileOutputStream fos = new FileOutputStream(arquivo);
+                ObjectOutputStream out = new ObjectOutputStream(fos)) {
             out.writeObject(planejamento);
         } catch (IOException e) {
             throw new PlanejamentoException("Não foi possível salvar o planejamento: " + e.getMessage());
@@ -26,7 +27,8 @@ public class ArquivoPlanejamento implements RepositorioPlanejamento {
 
     @Override
     public Planejamento carregar() throws PlanejamentoException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(arquivo))) {
+        try (FileInputStream fis = new FileInputStream(arquivo);
+                ObjectInputStream in = new ObjectInputStream(fis)) {
             Object inObj = in.readObject();
             if (!(inObj instanceof Planejamento)) {
                 throw new PlanejamentoException("Arquivo não contém um planejamento válido.");
