@@ -97,5 +97,4 @@ public class PlanejamentoController {
       throw new PlanejamentoException("Valor inválido: use números com até duas casas decimais, como 70,00.");
     }
   }
-
 }

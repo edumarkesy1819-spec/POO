@@ -66,6 +66,8 @@ public class PainelDespesas extends JPanel {
         adicionarButton.addActionListener(e -> incluirDespesa());
         botoesPanel.add(adicionarButton);
         JButton alterarButton = new JButton("Editar Despesa");
+        alterarButton.addActionListener(e -> editarDespesa());
+        listaDespesasList.addListSelectionListener(e -> preencherFormulario());
         botoesPanel.add(alterarButton);
         JButton excluirButton = new JButton("Excluir Despesa");
         excluirButton.addActionListener(e -> excluirDespesa());
@@ -100,6 +102,29 @@ public class PainelDespesas extends JPanel {
         }
     }
 
+    private void editarDespesa() {
+        Despesa despesaSelecionada = listaDespesasList.getSelectedValue();
+        if (despesaSelecionada == null) {
+            JOptionPane.showMessageDialog(this, "Selecione uma despesa para editar.", "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String descricao = descricaoField.getText();
+        String valorTexto = valorField.getText();
+        String tipo = (String) tipoField.getSelectedItem();
+        List<Participante> participantesSelecionados = listaParticipantesList.getSelectedValuesList();
+
+        try {
+            controller.editarDespesa(despesaSelecionada, descricao, valorTexto, tipo, participantesSelecionados);
+            atualizarListas();
+            limparCampos();
+            JOptionPane.showMessageDialog(this, "Despesa editada com sucesso!");
+        } catch (PlanejamentoException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao editar despesa: " + e.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void excluirDespesa() {
         Despesa despesaSelecionada = listaDespesasList.getSelectedValue();
         if (despesaSelecionada != null) {
@@ -115,6 +140,25 @@ public class PainelDespesas extends JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma despesa para excluir.", "Aviso",
                     JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void preencherFormulario() {
+        Despesa selecionada = listaDespesasList.getSelectedValue();
+        if (selecionada == null) {
+            return;
+        }
+        descricaoField.setText(selecionada.getDescricao());
+        valorField.setText(String.format("%d,%02d", selecionada.getValor() / 100, selecionada.getValor() % 100));
+        tipoField.setSelectedItem(selecionada.getTipo());
+        listaParticipantesList.clearSelection();
+
+        List<Participante> todos = controller.listarParticipantes();
+        for (int i = 0; i < todos.size(); i++) {
+            Participante p = todos.get(i);
+            if (selecionada.getParticipantes().contains(p)) {
+                listaParticipantesList.addSelectionInterval(i, i);
+            }
         }
     }
 
