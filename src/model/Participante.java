@@ -13,7 +13,7 @@ public class Participante implements Serializable {
         validarNome(nome);
         validarOrcamento(orcamento);
 
-        this.nome = nome;
+        this.nome = nome.trim();
         this.orcamento = orcamento;
         this.codigo = codigo;
 
@@ -33,7 +33,7 @@ public class Participante implements Serializable {
 
     public void setNome(String nome) throws PlanejamentoException {
         validarNome(nome);
-        this.nome = nome;
+        this.nome = nome.trim();
     }
 
     public void setOrcamento(int orcamento) throws PlanejamentoException {
@@ -44,7 +44,7 @@ public class Participante implements Serializable {
     public void alterarDados(String novoNome, int novoOrcamento) throws PlanejamentoException {
         validarNome(novoNome);
         validarOrcamento(novoOrcamento);
-        this.nome = novoNome;
+        this.nome = novoNome.trim();
         this.orcamento = novoOrcamento;
     }
 

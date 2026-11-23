@@ -124,5 +124,4 @@ public class PainelDespesas extends JPanel {
         tipoField.setSelectedIndex(0);
         listaParticipantesList.clearSelection();
     }
-
 }

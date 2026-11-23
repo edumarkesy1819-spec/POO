@@ -17,7 +17,7 @@ public abstract class Despesa implements Serializable {
         validarValor(valor);
         validarParticipantes(participantes);
 
-        this.descricao = descricao;
+        this.descricao = descricao.trim();
         this.valor = valor;
         this.participantes = participantes;
     }
@@ -28,7 +28,7 @@ public abstract class Despesa implements Serializable {
 
     @Override
     public String toString() {
-        return descricao + "(" + getTipo() + ")" + " - " + String.format("R$ %d,%02d", valor / 100, valor % 100);
+        return descricao + " (" + getTipo() + ")" + " - " + String.format("R$ %d,%02d", valor / 100, valor % 100);
     }
 
     public String getDescricao() {
