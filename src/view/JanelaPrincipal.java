@@ -19,6 +19,16 @@ public class JanelaPrincipal extends JFrame {
 
         PainelDespesas painelDespesas = new PainelDespesas(controller);
         abas.addTab("Despesas", painelDespesas);
-        abas.addChangeListener(e -> painelDespesas.atualizarListas());
+
+        PainelResumo painelResumo = new PainelResumo(controller);
+        abas.addTab("Resumo", painelResumo);
+
+        abas.addChangeListener(e -> {
+            if (abas.getSelectedComponent() == painelDespesas) {
+                painelDespesas.atualizarListas();
+            } else if (abas.getSelectedComponent() == painelResumo) {
+                painelResumo.atualizarResumo();
+            }
+        });
     }
 }

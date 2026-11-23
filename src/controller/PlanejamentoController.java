@@ -62,6 +62,18 @@ public class PlanejamentoController {
     planejamentoUso.removerDespesa(despesa);
   }
 
+  public int calcularTotalDe(Participante participante) {
+    return planejamentoUso.calcularTotalDe(participante);
+  }
+
+  public int calcularCustoTotal() {
+    return planejamentoUso.calcularCustoTotal();
+  }
+
+  public int calcularExcedenteDe(Participante participante) {
+    return planejamentoUso.calcularExcedenteDe(participante);
+  }
+
   private Despesa criarDespesa(String descricao, String valorTexto, String tipo, List<Participante> participantes)
       throws PlanejamentoException {
     int valor = converterParaCentavos(valorTexto);
