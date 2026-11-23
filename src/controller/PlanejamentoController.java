@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class PlanejamentoController {
-  public static final String TIPO_FIXA = "Fixa";
-  public static final String TIPO_POR_PESSOA = "Por Pessoa";
+  public static final String TIPO_FIXA = DespesaFixa.TIPO;
+  public static final String TIPO_POR_PESSOA = DespesaPorPessoa.TIPO;
 
   private Planejamento planejamentoUso;
   private RepositorioPlanejamento repositorio;

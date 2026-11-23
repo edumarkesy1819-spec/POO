@@ -24,6 +24,13 @@ public abstract class Despesa implements Serializable {
 
     public abstract int calcularParteDe(Participante participante);
 
+    public abstract String getTipo();
+
+    @Override
+    public String toString() {
+        return descricao + "(" + getTipo() + ")" + " - " + String.format("R$ %d,%02d", valor / 100, valor % 100);
+    }
+
     public String getDescricao() {
         return descricao;
     }

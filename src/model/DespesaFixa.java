@@ -4,9 +4,15 @@ import java.util.List;
 
 public class DespesaFixa extends Despesa {
     private static final long serialVersionUID = 1L;
+    public static final String TIPO = "Fixa";
 
     public DespesaFixa(String descricao, int valor, List<Participante> participantes) throws PlanejamentoException {
         super(descricao, valor, participantes);
+    }
+
+    @Override
+    public String getTipo() {
+        return TIPO;
     }
 
     @Override

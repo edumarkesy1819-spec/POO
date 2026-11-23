@@ -5,7 +5,7 @@ import model.Despesa;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -63,10 +63,12 @@ public class PainelDespesas extends JPanel {
 
         JPanel botoesPanel = new JPanel(new FlowLayout());
         JButton adicionarButton = new JButton("Incluir Despesa");
+        adicionarButton.addActionListener(e -> incluirDespesa());
         botoesPanel.add(adicionarButton);
         JButton alterarButton = new JButton("Editar Despesa");
         botoesPanel.add(alterarButton);
         JButton excluirButton = new JButton("Excluir Despesa");
+        excluirButton.addActionListener(e -> excluirDespesa());
         botoesPanel.add(excluirButton);
 
         JPanel formularioPanel = new JPanel(new GridLayout(2, 1));
@@ -79,6 +81,48 @@ public class PainelDespesas extends JPanel {
         add(scrollDespesas, BorderLayout.CENTER);
         add(formularioPanel, BorderLayout.NORTH);
         add(scrollParticipantes, BorderLayout.WEST);
+    }
+
+    private void incluirDespesa() {
+        String descricao = descricaoField.getText();
+        String valorTexto = valorField.getText();
+        String tipo = (String) tipoField.getSelectedItem();
+        List<Participante> participantesSelecionados = listaParticipantesList.getSelectedValuesList();
+
+        try {
+            controller.incluirDespesa(descricao, valorTexto, tipo, participantesSelecionados);
+            atualizarListas();
+            limparCampos();
+            JOptionPane.showMessageDialog(this, "Despesa incluída com sucesso!");
+        } catch (PlanejamentoException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao incluir despesa: " + e.getMessage(), "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void excluirDespesa() {
+        Despesa despesaSelecionada = listaDespesasList.getSelectedValue();
+        if (despesaSelecionada != null) {
+            int confirmacao = JOptionPane.showConfirmDialog(this,
+                    "Tem certeza que deseja excluir a despesa: " + despesaSelecionada.getDescricao() + "?",
+                    "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                controller.removerDespesa(despesaSelecionada);
+                atualizarListas();
+                limparCampos();
+                JOptionPane.showMessageDialog(this, "Despesa excluída com sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma despesa para excluir.", "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void limparCampos() {
+        descricaoField.setText("");
+        valorField.setText("");
+        tipoField.setSelectedIndex(0);
+        listaParticipantesList.clearSelection();
     }
 
 }
