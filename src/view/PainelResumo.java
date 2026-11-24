@@ -1,5 +1,6 @@
 package view;
 
+import model.Despesa;
 import model.Participante;
 import controller.PlanejamentoController;
 import javax.swing.JPanel;
@@ -29,7 +30,14 @@ public class PainelResumo extends JPanel {
     public void atualizarResumo() {
         StringBuilder resumo = new StringBuilder();
         resumo.append("Resumo do Planejamento:\n\n");
-        resumo.append("Participantes:\n");
+
+        resumo.append("Despesas:\n");
+        for (Despesa d : controller.listarDespesas()) {
+            resumo.append(d.getDescricao()).append(" (").append(d.getTipo()).append(") — ")
+                    .append(String.format("R$ %d,%02d", d.getValor() / 100, d.getValor() % 100)).append("\n");
+        }
+
+        resumo.append("\nParticipantes:\n");
 
         for (Participante p : controller.listarParticipantes()) {
             int total = controller.calcularTotalDe(p);
